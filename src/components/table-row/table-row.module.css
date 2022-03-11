@@ -29,8 +29,6 @@
     background-color: rgb(224, 222, 83);
 }
 
-
-.childrens > * {
+.childrens .tableRow {
     padding: 0 0 0 10px;
-    /* padding-left: 15px; */
 }
