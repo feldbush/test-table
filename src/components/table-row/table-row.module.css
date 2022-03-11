@@ -1,0 +1,36 @@
+.tableRow {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #a8a7a7;
+}
+
+.tableRow > * {
+    /* margin-bottom: 10px; */
+}
+
+.info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-radius: 10px;
+    grid-gap: 10px;
+}
+
+.tableCell {
+    margin: 5px;
+    padding: 10px;
+    
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    
+    border-radius: 10px;
+    background-color: rgb(224, 222, 83);
+}
+
+
+.childrens > * {
+    padding: 0 0 0 10px;
+    /* padding-left: 15px; */
+}
