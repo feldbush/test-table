@@ -1,15 +1,20 @@
 import { UserDataType } from "../types/UserDataType";
-import data from "../mock-data/data.json";
+import Tdata from "../mock-data/data.json";
+import { FiltersType } from "../store/reducers/tableReducer/tableReducer";
 
 export  const getUserDataById = (userId : number, data : Array<UserDataType>) => {
     return data.find(item => (item.id === userId)) as UserDataType
 }
 
-export const buildTableData = (data : Array<UserDataType>) : Array<UserDataType> => {
+export const buildTableData = (data : Array<UserDataType>, filterType : FiltersType) : Array<UserDataType> => {
+    const dataCopy : Array<UserDataType> = JSON.parse(JSON.stringify(data));
     const result : Array<UserDataType> = [];
 
-    data.forEach((item) => {
-        const currentItemId = item.id;
+    dataCopy.forEach((item) => {
+        if (filterType === FiltersType.IS_ACTIVE && !item.isActive) {
+            return;
+        }
+
         const currentItemParrentId = item.parentId;
 
         if(item?.childrens === undefined) {
@@ -17,14 +22,17 @@ export const buildTableData = (data : Array<UserDataType>) : Array<UserDataType>
         }
         
         if (currentItemParrentId !== 0) {
-            const parentItem = getUserDataById(currentItemParrentId, data);
+            const parentItem = {...getUserDataById(currentItemParrentId, dataCopy)};
+            // const dataCopy = [...data];
             
             if(item.childrens === undefined) {
                 parentItem.childrens = [];
             }
             if (Array.isArray(parentItem.childrens)) {
-                // parentItem.childrens.push(currentItemId);
+
                 parentItem.childrens.push(item);
+                
+                return
             }
 
             return
@@ -37,5 +45,5 @@ export const buildTableData = (data : Array<UserDataType>) : Array<UserDataType>
 }
 
 export const getData = () : Array<UserDataType> => {
-    return data
+    return JSON.parse(JSON.stringify(Tdata))
 }

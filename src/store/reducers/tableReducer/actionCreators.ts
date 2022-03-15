@@ -8,3 +8,7 @@ export const setDataAC = (data : Array<UserDataType>)  => {
 export const setFilter = (filterType : FiltersType) => {
     return {type: TableActionsType.SET_FILTER, payload: filterType}
 }
+
+export const resetFilter = () => {
+    return {type: TableActionsType.RESET_FILTER}
+}

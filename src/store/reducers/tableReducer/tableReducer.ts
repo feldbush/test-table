@@ -2,11 +2,13 @@ import { UserDataType } from "../../../types/UserDataType";
 
 export enum TableActionsType {
     SET_FILTER = 'SET_FILTER',
-    SET_DATA = 'SET_DATA'
+    SET_DATA = 'SET_DATA',
+    RESET_FILTER = 'RESET_FILTER'
 }
 
 export enum FiltersType {
-    IS_ACTIVE = 'IS_ACTIVE'
+    IS_ACTIVE = 'IS_ACTIVE',
+    NO_FILTERS = 'NO_FILTERS' 
 }
 
 interface SetDataAction {
@@ -19,16 +21,20 @@ interface SetFilterAction {
     payload: FiltersType
 }
 
-type TableActions = SetDataAction | SetFilterAction;
+interface ResetFilterAction {
+    type: TableActionsType.RESET_FILTER
+}
+
+type TableActions = SetDataAction | SetFilterAction | ResetFilterAction;
 
 interface TableState {
     tableData: Array<UserDataType> | []
-    filterType: string
+    filterType: FiltersType
 }
 
 const initialState : TableState = {
     tableData: [],
-    filterType: ''
+    filterType: FiltersType.NO_FILTERS
 }
 
 export const tableReducer = (state : TableState = initialState, action : TableActions) : TableState => {
@@ -37,10 +43,10 @@ export const tableReducer = (state : TableState = initialState, action : TableAc
             return {...state, tableData: action.payload}
 
         case TableActionsType.SET_FILTER:
-            // if (action.payload === FiltersType.IS_ACTIVE) {
-                
-            // }
             return {...state, filterType: action.payload}
+
+        case TableActionsType.RESET_FILTER:
+            return {...state, filterType: FiltersType.NO_FILTERS}
 
         default:
             return state

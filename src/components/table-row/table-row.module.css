@@ -6,10 +6,6 @@
     background-color: #a8a7a7;
 }
 
-.tableRow > * {
-    /* margin-bottom: 10px; */
-}
-
 .info {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
